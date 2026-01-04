@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - release
+      - "release/**"
 
 jobs:
   publish-tauri:
@@ -34,6 +34,11 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
+
+      - name: install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10 # Gunakan versi 10 untuk tahun 2026 atau 'latest'
 
       - name: setup node
         uses: actions/setup-node@v4
