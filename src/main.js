@@ -27,7 +27,7 @@ const startTimer = async () => {
 
 async function finishAndGoToSharing() {
   try {
-    await fetch("127.0.0.1:1500/api/lockscreen/show", {
+    await fetch("127.0.0.1:1500/api/lockscreen/show?password=TEST123", {
       method: "GET",
     });
 
