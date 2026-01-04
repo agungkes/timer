@@ -8,6 +8,14 @@
     "opener:default",
     "core:window:allow-hide",
     "core:window:allow-close",
-    "log:default"
+    "log:default",
+    {
+      "identifier": "http:default",
+      "allow": [
+        {
+          "url": "127.0.0.1*"
+        }
+      ]
+    }
   ]
 }
