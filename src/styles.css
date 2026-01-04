@@ -12,7 +12,8 @@ body {
   align-items: center;
 }
 
-#time {
+#time,
+#status-display {
   color: #ffffff;
   font-size: 48px;
   font-weight: bold;

@@ -12,7 +12,6 @@
     "windows": [
       {
         "title": "Timer",
-        "width": 150,
         "height": 50,
         "backgroundColor": null,
         "resizable": false,
