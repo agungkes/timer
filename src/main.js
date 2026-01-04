@@ -1,7 +1,10 @@
 const { getCurrentWindow } = window.__TAURI__.window;
 const { listen } = window.__TAURI__.event;
+const { fetch } = window.__TAURI__.http;
 
-const startTimer = () => {
+const startTimer = async () => {
+  await getCurrentWindow().show();
+
   let timeLeft = 5;
 
   const timerInterval = setInterval(async () => {
@@ -13,21 +16,34 @@ const startTimer = () => {
     )}:${String(seconds).padStart(2, "0")}`;
     if (timeLeft <= 0) {
       clearInterval(timerInterval);
-      const appWindow = getCurrentWindow();
-      await appWindow.hide();
+      await finishAndGoToSharing();
     }
     if (timeLeft <= 10) {
-      document.getElementById("timer-container").style.color = "#ff0000"; // Berubah merah saat kritis
+      document.getElementById("time").style.color = "#ff0000"; // Berubah merah saat kritis
     }
     timeLeft--;
   }, 1000);
 };
 
+async function finishAndGoToSharing() {
+  try {
+    await fetch("127.0.0.1:1500/api/lockscreen/show", {
+      method: "GET",
+    });
+
+    console.log("Perintah sharing terkirim ke dslrBooth");
+  } catch (error) {
+    console.error("Gagal kontak dslrBooth:", error);
+  } finally {
+    await getCurrentWindow().hide();
+  }
+}
+
 window.addEventListener("DOMContentLoaded", async () => {
   startTimer();
 
   await listen("dslr-event", async (event) => {
-    const dslrEvent = event.payload; // Ini berisi "session_start", "countdown_start", dll.
+    const dslrEvent = event.payload;
 
     if (dslrEvent === "session_start") {
       await getCurrentWindow().show();
