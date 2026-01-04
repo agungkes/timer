@@ -1,0 +1,21 @@
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  overflow: hidden;
+  background: transparent;
+  font-family: "League Spartan", sans-serif; /* Terapkan font League Spartan */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#time {
+  color: #ffffff;
+  font-size: 48px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  pointer-events: none;
+}
