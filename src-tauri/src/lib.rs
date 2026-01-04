@@ -1,10 +1,16 @@
 // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-use tauri::{Manager, PhysicalPosition};
+use tauri::{Manager, PhysicalPosition, Emitter};
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
+        .plugin(tauri_plugin_single_instance::init(|app, args, _cwd| {
+            if args.len() > 1 {
+                let event_name = &args[1]; 
+                app.emit("dslr-event", event_name).unwrap();
+            }
+        }))
         .setup(|app| {
             let window = app.get_webview_window("main").unwrap();
 
